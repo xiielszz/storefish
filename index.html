@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GameStore - Top Up Game Terpercaya</title>
+
+  <meta name="description" content="Top up dan beli item game terpercaya. Proses cepat & aman.">
+  <style>
+    * { box-sizing:border-box; font-family:Segoe UI,sans-serif }
+    body { margin:0; background:#0f172a; color:#fff }
+    header { padding:20px 40px; display:flex; justify-content:space-between }
+    .hero { text-align:center; padding:80px 20px }
+    .products {
+      max-width:1100px; margin:auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:24px; padding:20px
+    }
+    .card {
+      background:#020617; padding:16px; border-radius:16px
+    }
+    .card img { width:100%; border-radius:12px }
+    button {
+      width:100%; padding:12px; border:none;
+      border-radius:12px; background:#6366f1; color:#fff; cursor:pointer
+    }
+    footer { text-align:center; color:#94a3b8; padding:40px }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>GameStore</h2>
+  <a href="admin/index.html" style="color:#a5b4fc">Admin</a>
+</header>
+
+<section class="hero">
+  <h1>Top Up & Item Game</h1>
+  <p>Cepat • Aman • Terpercaya</p>
+</section>
+
+<section class="products" id="produk"></section>
+
+<footer>
+  © 2025 GameStore
+</footer>
+
+<script>
+  function loadProducts() {
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    const el = document.getElementById('produk');
+    el.innerHTML = '';
+
+    if (products.length === 0) {
+      el.innerHTML = '<p style="text-align:center;color:#94a3b8">Belum ada produk</p>';
+      return;
+    }
+
+    products.forEach(p => {
+      el.innerHTML += `
+        <div class="card">
+          <img src="${p.image}">
+          <h3>${p.name}</h3>
+          <p>${p.price}</p>
+          <button onclick="order('${p.name}')">Beli Sekarang</button>
+        </div>`;
+    });
+  }
+
+  function order(name) {
+    const phone = '628XXXXXXXXXX'; // GANTI
+    const text = `Halo, saya ingin membeli ${name}`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`);
+  }
+
+  loadProducts();
+</script>
+
+</body>
+</html>
